@@ -1,0 +1,36 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>圆周运动</title><style type="text/css">.ball{border-radius:50%;}</style>
+<script>
+onload=function(){
+	x_=300,y_=300, r = 250,	v=[6,7],PI=Math.PI;
+    var x, y;
+	box=document.getElementById('box');
+    for(var i = 0; i < 360; i += 0.1) {
+        x = Math.cos(PI / 180 * i) * r + x_; y = Math.sin(PI / 180 * i) * r + y_;
+        var O = document.createElement('span');
+        O.appendChild(document.createTextNode('.'));  box.appendChild(O);
+        O.style.left = x + 'px';O.style.position='absolute';O.style.top = y + 'px';
+    }        
+	var balls = document.getElementsByClassName("ball");
+	balls[0].deg = 0,balls[1].deg=0; 	
+	
+	interval=setInterval(function(){
+		x0=r *Math.cos(balls[0].deg *PI /180) +x_  ; y0=r *Math.sin(balls[0].deg *PI/180) +y_;
+		x1=r *Math.cos(balls[1].deg *PI /180) +x_ ;	y1=r *Math.sin(-balls[1].deg *PI/180) +y_;
+		balls[0].style.left = x0 +"px";	balls[0].style.top = y0 +"px";	
+		balls[0].deg+=3/v[0];
+		balls[1].style.left = x1 +"px" ;balls[1].style.top = y1 +"px";	
+		balls[1].deg+=3/v[1];
+		if(Math.sqrt((x0-x1)**2+(y0-y1)**2)<6) {
+            var O = document.createElement('span');
+			O.appendChild(document.createTextNode('x'));
+            box.appendChild(O);
+            O.style.left = x0 + 'px';O.style.position='absolute';O.style.top = y0 + 'px';O.style.color='#800080'
+		}
+	},1)
+}
+</script>
+</head><body><div class="box" id="box">
+	<div class="ball" style="position: absolute; background: red; left:600px; top:0;  width: 10px; height: 10px;">&nbsp;甲</div>
+	<div class="ball" style="position: absolute; background: blue; left:600px; top:0;  width: 10px; height: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;乙</div>
+	</div>	<a href="javascript:clearInterval(interval);">stop</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;甲、乙两人在圆形跑道上从同一地点A出发,按相反方向跑步.甲速度为每秒6米,乙速度为每秒7米,直到它们第一次又在A处相遇之前,再途中共相遇多少次?
+</body></html>
